@@ -315,7 +315,7 @@ int rtbt_hps_iface_init(
                 hdev->type = HCI_PCI;
 #endif
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(4,8,0)
-                hdev->dev_type = HCI_PRIMARY;
+//                hdev->dev_type = HCI_PRIMARY;
 #else
                 hdev->dev_type = HCI_BREDR;
 #endif
