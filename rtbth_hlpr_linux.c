@@ -376,7 +376,7 @@ BOOLEAN KeCancelTimer(
 
 	ral_spin_lock(&os_timer->lock, &irqflags);
 	if (os_timer->pOSTimer && (os_timer->state == RES_VALID)) {
-    #ifdef timer_shutdown_sync
+    #if LINUX_VERSION_CODE >= KERNEL_VERSION(6,15,0)
       status = timer_shutdown_sync((struct timer_list *)os_timer->pOSTimer);
     #else
       status = del_timer_sync((struct timer_list *)os_timer->pOSTimer);
@@ -404,7 +404,7 @@ INT KeFreeTimer(
 	if (os_timer->pOSTimer) {
 		timer = (struct timer_list *)os_timer->pOSTimer;
 		if (timer_pending(timer))
-    #ifdef timer_shutdown_sync
+    #if LINUX_VERSION_CODE >= KERNEL_VERSION(6,15,0)
       timer_shutdown_sync(timer);
     #else
       del_timer_sync(timer);
